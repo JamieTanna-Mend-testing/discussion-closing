@@ -34,6 +34,10 @@ module.exports = async ({ github, context }) => {
   const resp = await github.graphql(query)
   console.log({ resp })
   const { repository } = resp
+  console.log({ a: repository })
+  console.log({ a: repository.discussions })
+  console.log({ a: repository.discussions.edges })
+  console.log({ a: repository.discussions.edges.node })
 
   console.log(`Found ${repository.discussions.edges.node.length} discussions!`);
 
