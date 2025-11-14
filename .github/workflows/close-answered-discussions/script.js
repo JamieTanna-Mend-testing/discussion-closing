@@ -31,7 +31,9 @@ module.exports = ({ github, context }) => {
   }
 }`
 
-  const { repository } = github.graphql(query)
+  const resp = github.graphql(query)
+  console.log({ resp })
+  const { repository } = resp
 
   console.log(`Found ${repository.discussions.edges.nodes.length} discussions!`);
 
