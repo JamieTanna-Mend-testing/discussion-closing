@@ -69,6 +69,8 @@ module.exports = async ({ github, context, discussionAnsweredDays }) => {
       }
     }
 
+    console.debug(`Attempting the following mutation:\n${mutation}`)
+
     mutation += '}'
 
     await github.graphql(mutation)

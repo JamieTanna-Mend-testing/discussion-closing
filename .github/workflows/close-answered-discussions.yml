@@ -21,4 +21,4 @@ jobs:
         with:
           script: |
             const script = require('.github/workflows/close-answered-discussions/script.js')
-            console.log(await script({github, context, discussionAnsweredDays: 0}))
+            console.log(await script({github, context, discussionAnsweredDays: 30}))
