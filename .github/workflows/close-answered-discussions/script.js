@@ -37,8 +37,9 @@ module.exports = async ({ github, context }) => {
   }
 }`
 
-  let discussions = []
+  // let discussions = []
 
+  // NOTE not paginating https://github.com/actions/github-script/issues/309
   while (true) {
     console.debug({ cursor }, "Starting query")
     const resp = await github.graphql(query, { cursor })
@@ -48,18 +49,41 @@ module.exports = async ({ github, context }) => {
     console.debug({ a: repository.discussions })
     console.debug({ a: repository.discussions.edges })
 
-    discussions.push(...repository.discussions.edges)
+    console.log(`Found ${repository.discussions.edges.length} discussions`);
+
+    // discussions.push(...repository.discussions.edges)
 
     if (!resp.repository.discussions.pageInfo.hasNextPage) {
       break
     }
 
-    cursor = resp.repository.discussions.pageInfo.endCursor
+    let mutation = 'mutation {'
+    for (let i in resp.repository.discussions.edges) {
+      // console.log({ i })
+      // console.log({ r: resp.data.repository.discussions.edges[i] })
+      let edge = resp.data.repository.discussions.edges[i]
+      console.log(edge.node.answerChosenAt)
+      if (isOlderThanDaysAgo(edge.node.answerChosenAt, discussionAnsweredDays)) {
+        mutation += `m${i}: closeDiscussion(input: {discussionId: "${edge.node.id}"}) {
+    clientMutationId
+    }\n`
+      }
+    }
+
+    mutation += '}'
+
+    console.log({ mutation })
   }
 
-  // TODO not paginating https://github.com/actions/github-script/issues/309
+  // HACK
+  break
 
-  console.log(`Found ${discussions.length} discussions!`);
 
-  return ''
+  // cursor = resp.repository.discussions.pageInfo.endCursor
+}
+
+//
+// console.log(`Found ${discussions.length} discussions!`);
+
+return ''
 }
