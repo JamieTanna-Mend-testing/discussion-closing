@@ -19,8 +19,11 @@ module.exports = async ({ github, context }) => {
   owner = 'JamieTanna-Mend-testing'
   repo = 'discussion-closing'
 
-  owner = 'renovatebot'
-  repo = 'renovate'
+  // HACK
+  // owner = 'renovatebot'
+  // repo = 'renovate'
+
+  let cursor = null
 
   const query = `query ($cursor: String) {
   repository(owner: "${owner}", name: "${repo}") {
@@ -39,19 +42,29 @@ module.exports = async ({ github, context }) => {
   }
 }`
 
-  console.log(github.graphql)
-  console.log(github.graphql.paginate)
+  let discussions = []
+
+  while (true) {
+    const resp = await github.graphql(query, { cursor })
+    console.log({ resp })
+    const { repository } = resp
+    console.log({ a: repository })
+    console.log({ a: repository.discussions })
+    console.log({ a: repository.discussions.edges })
+    console.log({ a: repository.discussions.edges.node })
+
+    discussions.push(...repository.discussions.edges.node)
+
+    if (!query.repository.discussions.pageInfo.hasNextPage) {
+      break
+    }
+
+    cursor = query.repository.discussions.pageInfo.endCursor
+  }
 
   // TODO not paginating https://github.com/actions/github-script/issues/309
-  const resp = await github.graphql(query)
-  console.log({ resp })
-  const { repository } = resp
-  console.log({ a: repository })
-  console.log({ a: repository.discussions })
-  console.log({ a: repository.discussions.edges })
-  console.log({ a: repository.discussions.edges.node })
 
-  console.log(`Found ${repository.discussions.edges.length} discussions!`);
+  console.log(`Found ${discussions.length} discussions!`);
 
   return ''
 }
