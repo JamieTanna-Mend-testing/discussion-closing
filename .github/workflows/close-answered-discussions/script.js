@@ -57,6 +57,7 @@ module.exports = async ({ github, context, discussionAnsweredDays }) => {
       break
     }
 
+    let numMutating = 0
     let mutation = 'mutation {'
     for (let i in resp.repository.discussions.edges) {
       let edge = resp.repository.discussions.edges[i]
@@ -64,12 +65,15 @@ module.exports = async ({ github, context, discussionAnsweredDays }) => {
         mutation += `m${i}: closeDiscussion(input: {discussionId: "${edge.node.id}"}) {
     clientMutationId
     }\n`
+        numMutating++
       }
     }
 
     mutation += '}'
 
-    console.log({ mutation })
+    await github.graphql(mutation)
+
+    console.log(`Closed ${numMutating} answered Discussions`)
 
     // HACK
     break
