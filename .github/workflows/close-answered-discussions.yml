@@ -19,5 +19,5 @@ jobs:
       - uses: actions/github-script@v8 # TODO
         with:
           script: |
-            const script = require('./close-answered-discussions/script.js')
+            const script = require('.github/workflows/close-answered-discussions/script.js')
             console.log(script({github, context}))
