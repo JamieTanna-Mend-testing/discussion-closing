@@ -14,6 +14,9 @@ module.exports = async ({ github, context }) => {
   owner = 'JamieTanna-Mend-testing'
   repo = 'discussion-closing'
 
+  owner = 'renovatebot'
+  repo = 'renovate'
+
   const query = `query ($cursor: String) {
   repository(owner: "${owner}", name: "${repo}") {
     discussions(after: $cursor, states: OPEN, answered: true, first: 1, orderBy: {field: CREATED_AT, direction: ASC}) {
