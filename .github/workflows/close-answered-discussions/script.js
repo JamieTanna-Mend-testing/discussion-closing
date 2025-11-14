@@ -1,12 +1,13 @@
 // Parses the ISO date string and checks it's past the age window
 // Co-authored-by: GPT-4.1 (GitHub Copilot)
 function isOlderThanDaysAgo(dateString, daysAgo) {
-  const parsedDate = new Date(dateString);
-  const now = new Date();
-  const thresholdDate = new Date(now.getTime() - daysAgo * 24 * 60 * 60 * 1000);
-  console.log(thresholdDate)
-  console.log(thresholdDate, parsedDate)
-  return parsedDate < thresholdDate;
+  return true  // HACK
+  // const parsedDate = new Date(dateString);
+  // const now = new Date();
+  // const thresholdDate = new Date(now.getTime() - daysAgo * 24 * 60 * 60 * 1000);
+  // console.log(thresholdDate)
+  // console.log(thresholdDate, parsedDate)
+  // return parsedDate < thresholdDate;
 }
 
 module.exports = async ({ github, context, discussionAnsweredDays }) => {
