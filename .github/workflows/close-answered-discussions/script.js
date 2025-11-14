@@ -39,7 +39,7 @@ module.exports = async ({ github, context }) => {
   console.log({ a: repository.discussions.edges })
   console.log({ a: repository.discussions.edges.node })
 
-  console.log(`Found ${repository.discussions.edges.node.length} discussions!`);
+  console.log(`Found ${repository.discussions.edges.length} discussions!`);
 
   return context.payload.client_payload.value
 }
