@@ -10,7 +10,9 @@ function isOlderThanDaysAgo(dateString, daysAgo) {
 }
 
 module.exports = ({ github, context }) => {
-  const { owner, repo } = context.repo()
+  // const { owner, repo } = context.repo()
+  owner = 'JamieTanna-Mend-testing'
+  repo = 'discussion-closing'
 
   const query = `query ($cursor: String) {
   repository(owner: "${owner}", name: "${repo}") {
