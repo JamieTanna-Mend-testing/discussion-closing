@@ -40,13 +40,13 @@ module.exports = async ({ github, context }) => {
   let discussions = []
 
   while (true) {
+    console.debug({ cursor }, "Starting query")
     const resp = await github.graphql(query, { cursor })
     console.log({ resp })
     const { repository } = resp
-    console.log({ a: repository })
-    console.log({ a: repository.discussions })
-    console.log({ a: repository.discussions.edges })
-    console.log({ a: repository.discussions.edges.node })
+    console.debug({ a: repository })
+    console.debug({ a: repository.discussions })
+    console.debug({ a: repository.discussions.edges })
 
     discussions.push(...repository.discussions.edges)
 
