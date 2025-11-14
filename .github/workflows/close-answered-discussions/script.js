@@ -48,7 +48,7 @@ module.exports = async ({ github, context }) => {
     console.log({ a: repository.discussions.edges })
     console.log({ a: repository.discussions.edges.node })
 
-    discussions.push(...repository.discussions.edges.node)
+    discussions.push(...repository.discussions.edges)
 
     if (!query.repository.discussions.pageInfo.hasNextPage) {
       break
