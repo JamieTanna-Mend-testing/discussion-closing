@@ -1,0 +1,23 @@
+name: Close answered discussions
+
+permissions:
+  discussions: write
+
+on:
+  workflow_dispatch:
+
+jobs:
+  close-answered-discussions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          show-progress: false
+
+      - uses: actions/github-script@v8 # TODO
+        with:
+          script: |
+            const script = require('./close-answered-discussions/script.js')
+            console.log(script({github, context}))
