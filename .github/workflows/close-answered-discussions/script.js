@@ -50,11 +50,11 @@ module.exports = async ({ github, context }) => {
 
     discussions.push(...repository.discussions.edges)
 
-    if (!query.repository.discussions.pageInfo.hasNextPage) {
+    if (!resp.repository.discussions.pageInfo.hasNextPage) {
       break
     }
 
-    cursor = query.repository.discussions.pageInfo.endCursor
+    cursor = resp.repository.discussions.pageInfo.endCursor
   }
 
   // TODO not paginating https://github.com/actions/github-script/issues/309
