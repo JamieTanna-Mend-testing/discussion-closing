@@ -1,8 +1,3 @@
-import { Octokit } from "@octokit/core";
-import { paginateGraphQL } from "@octokit/plugin-paginate-graphql";
-
-const MyOctokit = Octokit.plugin(paginateGraphQL);
-
 // Parses the ISO date string and checks it's past the age window
 // Co-authored-by: GPT-4.1 (GitHub Copilot)
 function isOlderThanDaysAgo(dateString, daysAgo) {
