@@ -11,6 +11,7 @@ on:
 permissions:
   issues: write
   pull-requests: write
+  discussions: write
 
 # Ensure only one lock action can run at a time
 concurrency:
