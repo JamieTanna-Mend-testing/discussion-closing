@@ -59,7 +59,7 @@ module.exports = async ({ github, context }) => {
 
     let mutation = 'mutation {'
     for (let i in resp.repository.discussions.edges) {
-      let edge = resp.data.repository.discussions.edges[i]
+      let edge = resp.repository.discussions.edges[i]
       if (isOlderThanDaysAgo(edge.node.answerChosenAt, discussionAnsweredDays)) {
         mutation += `m${i}: closeDiscussion(input: {discussionId: "${edge.node.id}"}) {
     clientMutationId
