@@ -68,20 +68,18 @@ module.exports = async ({ github, context, discussionAnsweredDays }) => {
         numMutating++
       }
     }
-
-    console.debug(`Attempting the following mutation:\n${mutation}`)
-
     mutation += '}'
 
-    await github.graphql(mutation)
+    if (numMutating > 0) {
+      console.debug(`Attempting the following mutation:\n${mutation}`)
 
-    console.log(`Closed ${numMutating} answered Discussions`)
+      await github.graphql(mutation)
 
-    // HACK
-    break
-
-
-    // cursor = resp.repository.discussions.pageInfo.endCursor
+      console.log(`Closed ${numMutating} answered Discussions`)
+    } else {
+      console.debug(`Did not find any Discussions to close in this page of data`)
+    }
+    cursor = resp.repository.discussions.pageInfo.endCursor
   }
 
   //
