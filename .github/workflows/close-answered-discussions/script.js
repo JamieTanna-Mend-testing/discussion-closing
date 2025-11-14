@@ -15,8 +15,8 @@ module.exports = async ({ github, context }) => {
   repo = 'discussion-closing'
 
   // HACK
-  // owner = 'renovatebot'
-  // repo = 'renovate'
+  owner = 'renovatebot'
+  repo = 'renovate'
 
   let cursor = null
 
