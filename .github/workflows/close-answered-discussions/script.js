@@ -9,7 +9,7 @@ function isOlderThanDaysAgo(dateString, daysAgo) {
   return parsedDate < thresholdDate;
 }
 
-module.exports = ({ github, context }) => {
+module.exports = async ({ github, context }) => {
   // const { owner, repo } = context.repo()
   owner = 'JamieTanna-Mend-testing'
   repo = 'discussion-closing'
@@ -31,7 +31,7 @@ module.exports = ({ github, context }) => {
   }
 }`
 
-  const resp = github.graphql(query)
+  const resp = await github.graphql(query)
   console.log({ resp })
   const { repository } = resp
 
