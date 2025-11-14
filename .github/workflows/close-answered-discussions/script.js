@@ -59,10 +59,7 @@ module.exports = async ({ github, context }) => {
 
     let mutation = 'mutation {'
     for (let i in resp.repository.discussions.edges) {
-      // console.log({ i })
-      // console.log({ r: resp.data.repository.discussions.edges[i] })
       let edge = resp.data.repository.discussions.edges[i]
-      console.log(edge.node.answerChosenAt)
       if (isOlderThanDaysAgo(edge.node.answerChosenAt, discussionAnsweredDays)) {
         mutation += `m${i}: closeDiscussion(input: {discussionId: "${edge.node.id}"}) {
     clientMutationId
@@ -73,17 +70,16 @@ module.exports = async ({ github, context }) => {
     mutation += '}'
 
     console.log({ mutation })
+
+    // HACK
+    break
+
+
+    // cursor = resp.repository.discussions.pageInfo.endCursor
   }
 
-  // HACK
-  break
+  //
+  // console.log(`Found ${discussions.length} discussions!`);
 
-
-  // cursor = resp.repository.discussions.pageInfo.endCursor
-}
-
-//
-// console.log(`Found ${discussions.length} discussions!`);
-
-return ''
+  return ''
 }
