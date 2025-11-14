@@ -41,5 +41,5 @@ module.exports = async ({ github, context }) => {
 
   console.log(`Found ${repository.discussions.edges.length} discussions!`);
 
-  return context.payload.client_payload.value
+  return ''
 }
