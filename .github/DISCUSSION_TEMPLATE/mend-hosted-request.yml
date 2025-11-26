@@ -1,14 +1,12 @@
-name: Mend-hosted app request
-description: For bug reports, please use "Request Help".
 labels:
   - mend-app
 body:
   - type: dropdown
     id: request-type
     attributes:
-      label: 'What would you like help with?'
+      label: "What would you like help with?"
       options:
-        - 'Upgrade to the Community (OSS) plan'
+        - "Upgrade to the Community (OSS) plan"
 
   - type: input
     id: organisation-url
