@@ -13,7 +13,7 @@ body:
     attributes:
       label: Please share the URL to the organisation you're creating this request for
 
-  - type: input
+  - type: textarea
     id: remarks
     attributes:
       label: Additional information
